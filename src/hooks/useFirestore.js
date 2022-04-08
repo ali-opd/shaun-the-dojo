@@ -5,7 +5,7 @@ let initialState = {
   document: null,
   isPending: false,
   error: null,
-  success: null
+  success: null,
 };
 
 const firestoreReducer = (state, action) => {
@@ -15,32 +15,32 @@ const firestoreReducer = (state, action) => {
         isPending: true,
         document: null,
         success: false,
-        error: null
+        error: null,
       };
     case 'ADDED_DOCUMENT':
       return {
         isPending: false,
         document: action.payload,
         success: true,
-        error: null
+        error: null,
       };
     case 'UPDATED_DOCUMENT':
       return {
         isPending: false,
         document: action.payload,
         succes: true,
-        error: null
+        error: null,
       };
     case 'DELETED_DOCUMENT':
       return {
-        isPending: false
+        isPending: false,
       };
     case 'ERROR':
       return {
         isPending: false,
         document: null,
         success: false,
-        error: action.payload
+        error: action.payload,
       };
     default:
       return state;
@@ -70,7 +70,7 @@ export const useFirestore = (collection) => {
       const addedDocument = await ref.add({ ...doc, createdAt });
       dispatchIfNotCancelled({
         type: 'ADDED_DOCUMENT',
-        payload: addedDocument
+        payload: addedDocument,
       });
     } catch (error) {
       dispatchIfNotCancelled({ type: 'ERROR', payload: error.message });
@@ -85,9 +85,10 @@ export const useFirestore = (collection) => {
       const deletedDocument = await ref.doc(id).delete();
       dispatchIfNotCancelled({
         type: 'DELETED_DOCUMENT',
-        payload: deletedDocument
+        payload: deletedDocument,
       });
     } catch (error) {
+      console.log(error);
       dispatchIfNotCancelled({ type: 'ERROR', payload: 'could not delete' });
     }
   };
@@ -100,7 +101,7 @@ export const useFirestore = (collection) => {
 
       dispatchIfNotCancelled({
         type: 'UPDATED_DOCUMENT',
-        payload: updatedDocument
+        payload: updatedDocument,
       });
       return updatedDocument;
     } catch (error) {

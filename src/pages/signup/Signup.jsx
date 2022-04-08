@@ -31,8 +31,8 @@ export default function Signup() {
       return;
     }
 
-    if (selected.size > 100000) {
-      setThumbnailError('Image file size must be less than 100kb');
+    if (selected.size > 1000000) {
+      setThumbnailError('Image file size must be less than 1Mb');
       return;
     }
 
@@ -43,12 +43,12 @@ export default function Signup() {
   };
 
   return (
-    <form className='auth-form' onSubmit={handleSubmit}>
+    <form className="auth-form" onSubmit={handleSubmit}>
       <h2>Signup</h2>
       <label>
         <span>email:</span>
         <input
-          type='email'
+          type="email"
           required
           onChange={(e) => setEmail(e.target.value)}
           value={email}
@@ -57,7 +57,7 @@ export default function Signup() {
       <label>
         <span>password:</span>
         <input
-          type='password'
+          type="password"
           required
           onChange={(e) => setPassword(e.target.value)}
           value={password}
@@ -66,7 +66,7 @@ export default function Signup() {
       <label>
         <span>display name:</span>
         <input
-          type='text'
+          type="text"
           required
           onChange={(e) => setDisplayName(e.target.value)}
           value={displayName}
@@ -75,17 +75,17 @@ export default function Signup() {
 
       <label>
         <span>display name:</span>
-        <input type='file' required onChange={handleFileChange} />
-        {thumbnailError && <div className='error'>{thumbnailError}</div>}
+        <input type="file" required onChange={handleFileChange} />
+        {thumbnailError && <div className="error">{thumbnailError}</div>}
       </label>
 
-      {!isPending && <button className='btn'>Signup</button>}
+      {!isPending && <button className="btn">Signup</button>}
       {isPending && (
-        <button className='btn' disabled>
+        <button className="btn" disabled>
           loading
         </button>
       )}
-      {error && <div className='error'>{error}</div>}
+      {error && <div className="error">{error}</div>}
     </form>
   );
 }

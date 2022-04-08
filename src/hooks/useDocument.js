@@ -4,11 +4,12 @@ import { projectFirestore } from '../firebase/config';
 export const useDocument = (collection, id) => {
   const [document, setDocument] = useState(null);
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   // realtime data for document
   useEffect(() => {
     const ref = projectFirestore.collection(collection).doc(id);
-
+    setIsLoading(true);
     const unsubscribe = ref.onSnapshot(
       (snapshot) => {
         if (snapshot.data()) {
@@ -24,8 +25,9 @@ export const useDocument = (collection, id) => {
       }
     );
 
+    setIsLoading(false);
     return () => unsubscribe();
   }, [collection, id]);
 
-  return { document, error };
+  return { document, error, isLoading };
 };
